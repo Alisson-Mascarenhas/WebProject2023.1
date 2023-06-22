@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quadro de Horário do Professor</title>
+</head>
+<body>
+    <h1>Quadro de Horário do Professor</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Dia e Horário</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="disciplina : ${disciplinas}">
+                <td th:text="${disciplina.nome}"></td>
+                <td th:text="${disciplina.horario}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

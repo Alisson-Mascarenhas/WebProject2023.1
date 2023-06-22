@@ -27,7 +27,7 @@ public class QuadroHorarioProfessorController {
 
     @GetMapping
     public String mostrarFormulario() {
-        return "quadro-horario-professor";
+        return "quadroHorarioProfessor";
     }
 
     @PostMapping
@@ -35,16 +35,12 @@ public class QuadroHorarioProfessorController {
         Professor professor = professorRepository.findByMatricula(matricula);
 
         if (professor != null) {
-            // Lógica para obter o quadro de horário do professor
             List<Disciplina> disciplinas = disciplinaRepository.findByprofessorResponsavel(professor);
 
-            // Adicione os dados do quadro de horário ao objeto 'model'
             model.addAttribute("disciplinas", disciplinas);
 
-            // Retorne o nome da página HTML de exibição do quadro de horário
-            return "quadro-horario-professor";
+            return "quadroHorarioProfessor";
         } else {
-            // Caso o professor não seja encontrado, pode-se redirecionar para uma página de erro
             return "redirect:/erro";
         }
     }

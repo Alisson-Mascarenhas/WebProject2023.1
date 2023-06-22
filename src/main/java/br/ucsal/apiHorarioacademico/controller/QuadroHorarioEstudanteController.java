@@ -23,7 +23,7 @@ public class QuadroHorarioEstudanteController {
 
     @GetMapping
     public String mostrarFormulario() {
-        return "quadro-horario-estudante";
+        return "quadroHorarioEstudante";
     }
 
     @PostMapping
@@ -32,16 +32,12 @@ public class QuadroHorarioEstudanteController {
     	Estudante estudante = estudanteRepository.findByMatricula(matricula);
 
         if (estudante != null) {
-            // Obtém os quadros de horários do estudante
             List<QuadroHorario> quadroHorarios = estudante.getQuadroHorarios();
 
-            // Adiciona os dados do quadro de horário ao objeto 'model'
             model.addAttribute("quadroHorarios", quadroHorarios);
 
-            // Retorne o nome da página HTML de exibição do quadro de horário
-            return "quadro-horario-estudante";
+            return "quadroHorarioEstudante";
         } else {
-            // Caso o estudante não seja encontrado, pode-se redirecionar para uma página de erro
             return "redirect:/erro";
         }
     }

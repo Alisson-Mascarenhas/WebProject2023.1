@@ -2,6 +2,7 @@ package br.ucsal.apiHorarioacademico.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,32 +27,27 @@ public class DisciplinaController {
 	}
 
 	@GetMapping
-	public String mostrarFormulario() {
-		// Renderiza o formulário de cadastro de disciplina
-		return "cadastrar-disciplina";
+	public String mostrarFormulario(Model model) {
+        model.addAttribute("disciplina", new Disciplina());
+        model.addAttribute("professores", professorRepository.findAll());
+        return "cadastrarDisciplina";
 	}
 
 	@PostMapping
-	public String cadastrarDisciplina(HttpServletRequest request) {
-		// Obtém os dados do formulário
-		String codigo = request.getParameter("codigo");
-		String nome = request.getParameter("nome");
-		String matriculaProfessor = request.getParameter("matriculaProfessor");
+	public String cadastrarDisciplina(Disciplina disciplina) {
+		String codigo = disciplina.getCodigo();
+		String nome = disciplina.getNome();
+		String matriculaProfessor = disciplina.getProfessorResponsavel().getMatricula();
 
-		// Encontra o professor com a matrícula fornecida
 		Professor professor = encontrarProfessorPorMatricula(matriculaProfessor);
 
 		if (professor != null) {
-			// Cria uma nova disciplina com o professor encontrado
-			Disciplina disciplina = new Disciplina(codigo, nome, professor);
+			Disciplina disci = new Disciplina(codigo, nome, professor);
 
-			// Salva a disciplina no banco de dados
-			disciplinaRepository.save(disciplina);
+			disciplinaRepository.save(disci);
 
-			// Redireciona para uma página de confirmação ou outra ação desejada
-			return "redirect:/disciplina-confirmacao";
+			return "redirect:/cadastrarDisciplina";
 		} else {
-			// Caso o professor não seja encontrado, redireciona para uma página de erro
 			return "redirect:/erro";
 		}
 	}

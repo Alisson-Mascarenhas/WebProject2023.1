@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Estudante</title>
+</head>
+<body>
+    <h1>Cadastro de Estudante</h1>
+    
+    <form th:action="@{/estudante}" method="post">
+        <label>ID/Matrícula:</label>
+        <input type="text" name="matricula" required><br>
+        
+        <label>Nome completo:</label>
+        <input type="text" name="nome" required><br>
+        
+        <label>Email:</label>
+        <input type="email" name="email" required><br>
+        
+        <label>Ano de egresso:</label>
+        <input type="text" name="anoEgresso" required><br>
+        
+        <input type="submit" value="Cadastrar">
+    </form>
+    
+    <h2>Estudantes Cadastrados:</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID/Matrícula</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ano de Egresso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="estudante : ${estudantes}">
+                <td th:text="${estudante.matricula}"></td>
+                <td th:text="${estudante.nome}"></td>
+                <td th:text="${estudante.email}"></td>
+                <td th:text="${estudante.anoEgresso}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

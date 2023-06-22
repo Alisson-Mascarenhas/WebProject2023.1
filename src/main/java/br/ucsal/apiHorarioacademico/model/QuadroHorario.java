@@ -42,6 +42,11 @@ public class QuadroHorario {
 	@Column(name = "horario")
 	private Map<DiaSemana, String> horarios;
 
+	public QuadroHorario(Disciplina disciplina, Estudante estudante) {
+		this.disciplina = disciplina;
+		this.estudante = estudante;
+	}
+
 	public Long getId() {
 		return id;
 	}

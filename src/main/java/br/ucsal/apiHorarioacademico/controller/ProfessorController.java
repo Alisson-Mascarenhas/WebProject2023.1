@@ -2,10 +2,12 @@ package br.ucsal.apiHorarioacademico.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.ucsal.apiHorarioacademico.model.Estudante;
 import br.ucsal.apiHorarioacademico.model.Professor;
 import br.ucsal.apiHorarioacademico.repository.ProfessorRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,9 +24,10 @@ public class ProfessorController {
     }
 
     @GetMapping
-    public String mostrarFormulario() {
-        // Renderiza o formulário de cadastro de professor
-        return "cadastrar-professor";
+    public String mostrarFormulario(Model model) {
+        model.addAttribute("professor", new Professor());
+        model.addAttribute("professores", professorRepository.findAll());
+        return "cadastrarProfessor";
     }
 
     @PostMapping

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Diário da Disciplina</title>
+</head>
+<body>
+    <h1>Diário da Disciplina</h1>
+    
+    <h2>Disciplina: <span th:text="${disciplina.nome}"></span></h2>
+    <h2>Professor(a): <span th:text="${disciplina.professor.nome}"></span></h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Estudante</th>
+                <th>Dia da Semana</th>
+                <th>Horário</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="estudante : ${disciplina.estudantes}">
+                <td th:text="${estudante.nome}"></td>
+                <td th:text="${estudante.quadroHorario.diaSemana}"></td>
+                <td th:text="${estudante.quadroHorario.horario}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
